@@ -1,0 +1,49 @@
+﻿@model EmployeesViewModel
+@{
+    ViewData["Title"] = "Employees";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="UploadFile" asp-controller="Employees" method="post" enctype="multipart/form-data" class="mb-4">
+    <div class="form-group">
+        <label asp-for="UploadedFile" class="form-label d-block mb-2">Upload file</label>
+
+        <div class="d-flex align-items-center">
+            <input asp-for="UploadedFile" type="file" class="form-control border border-secondary rounded me-2"
+                   style="width:33vw; max-width:420px; min-width:200px;" />
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</form>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Employee ID #1</th>
+            <th>Employee ID #2</th>
+            <th>Project ID</th>
+            <th>Days worked</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model?.Pairs != null && Model.Pairs.Count > 0)
+        {
+            foreach (var p in Model.Pairs)
+            {
+                <tr>
+                    <td>@p.EmployeeId1</td>
+                    <td>@p.EmployeeId2</td>
+                    <td>@p.ProjectId</td>
+                    <td>@p.DaysWorked</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" class="text-center">No data available</td>
+            </tr>
+        }
+    </tbody>
+</table>
