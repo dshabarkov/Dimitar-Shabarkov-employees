@@ -5,6 +5,11 @@
 
 <h1>@ViewData["Title"]</h1>
 
+@if (ViewData.ModelState.Values.SelectMany(v => v.Errors).Any())
+{
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+}
+
 <form asp-action="UploadFile" asp-controller="Employees" method="post" enctype="multipart/form-data" class="mb-4">
     <div class="form-group">
         <label asp-for="UploadedFile" class="form-label d-block mb-2">Upload file</label>
@@ -14,6 +19,8 @@
                    style="width:33vw; max-width:420px; min-width:200px;" />
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
+
+        <span asp-validation-for="UploadedFile" class="text-danger"></span>
     </div>
 </form>
 
